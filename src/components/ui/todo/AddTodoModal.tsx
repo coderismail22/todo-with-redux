@@ -26,7 +26,7 @@ const AddTodoModal = () => {
     const taskDetails = {
       id: randomString,
       title,
-      description,
+      description
     };
     dispatch(addTodo(taskDetails));
     console.log(taskDetails);
