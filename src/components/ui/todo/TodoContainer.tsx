@@ -1,10 +1,21 @@
-import { useAppSelector } from "@/redux/hooks";
+// import { useAppSelector } from "@/redux/hooks";
 import AddTodoModal from "./AddTodoModal";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
+import { useGetTodosQuery } from "@/redux/api/api";
 
 const TodoContainer = () => {
-  const { todos } = useAppSelector((state) => state.todos);
+  //from local server
+  const { data, isLoading, isError } = useGetTodosQuery("");
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    <div>Something went wrong !</div>;
+  }
+  const todos = data.data;
+  console.log(data.data);
   return (
     <div>
       <div className="flex justify-between m-2 ">
@@ -17,10 +28,10 @@ const TodoContainer = () => {
             <div>
               {todos.map((todo) => (
                 <TodoCard
-                  id={todo.id}
+                  // id={todo.id}
                   title={todo.title}
                   description={todo.description}
-                  isCompleted={todo.isCompleted}
+                  // isCompleted={todo.isCompleted}
                 />
               ))}
             </div>
