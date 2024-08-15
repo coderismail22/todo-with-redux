@@ -32,7 +32,7 @@ const TodoContainer = () => {
                   title={todo.title}
                   description={todo.description}
                   priority={todo.priority}
-                  // isCompleted={todo.isCompleted}
+                  isCompleted={todo.isCompleted}
                 />
               ))}
             </div>

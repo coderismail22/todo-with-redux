@@ -10,8 +10,8 @@ type TTodoCard = {
   isCompleted: boolean;
 };
 
-const TodoCard = ({ title, description, priority }: TTodoCard) => {
-  // const dispatch = useAppDispatch();
+const TodoCard = ({ title, description, priority, isCompleted }: TTodoCard) => {
+
 
   // const toggleTask = () => {
   //   dispatch(toggleComplete(id));
@@ -40,13 +40,13 @@ const TodoCard = ({ title, description, priority }: TTodoCard) => {
       </div>
 
       {/* <p>Time</p> */}
-      {/* <div>
+      <div className="flex-1">
         {isCompleted ? (
           <p className="text-green-500 font-bold">Done </p>
         ) : (
           <p className="text-red-500 font-bold">Pending</p>
         )}
-      </div> */}
+      </div>
       <p className="flex-1">{description}</p>
       <div className="space-x-5">
         {/* <Button onClick={() => dispatch(removeTodo(id))} className="bg-red-600">
