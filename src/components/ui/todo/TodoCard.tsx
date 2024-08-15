@@ -3,13 +3,14 @@ import { Button } from "../button";
 // import { removeTodo, toggleComplete } from "@/redux/features/todoSlice";
 
 type TTodoCard = {
-  // id: string;
+  id: string;
   title: string;
   description: string;
-  // isCompleted?: boolean;
+  priority: string;
+  isCompleted: boolean;
 };
 
-const TodoCard = ({ title, description }: TTodoCard) => {
+const TodoCard = ({ title, description, priority }: TTodoCard) => {
   // const dispatch = useAppDispatch();
 
   // const toggleTask = () => {
@@ -20,11 +21,24 @@ const TodoCard = ({ title, description }: TTodoCard) => {
     <div className="bg-white rounded-md flex justify-between items-center p-3 border mb-2">
       <input
         // onClick={() => toggleTask()}
+        className="mr-3"
         type="checkbox"
         name="complete"
         id="complete"
       />
-      <p>{title}</p>
+      <p className="flex-1">{title}</p>
+
+      <div className="flex flex-1 items-center left-0 gap-1">
+        <div
+          className={`size-3 rounded-full ${
+            priority == "high" ? `bg-red-500` : null
+          } ${priority == "medium" ? `bg-yellow-500` : null} ${
+            priority == "low" ? `bg-green-500` : null
+          }`}
+        ></div>
+        <p>{priority}</p>
+      </div>
+
       {/* <p>Time</p> */}
       {/* <div>
         {isCompleted ? (
@@ -33,7 +47,7 @@ const TodoCard = ({ title, description }: TTodoCard) => {
           <p className="text-red-500 font-bold">Pending</p>
         )}
       </div> */}
-      <p>{description}</p>
+      <p className="flex-1">{description}</p>
       <div className="space-x-5">
         {/* <Button onClick={() => dispatch(removeTodo(id))} className="bg-red-600">
           <svg

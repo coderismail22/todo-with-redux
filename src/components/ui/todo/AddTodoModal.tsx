@@ -8,28 +8,37 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addTodo } from "@/redux/features/todoSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { usePostTodosMutation } from "@/redux/api/api";
+// import { addTodo } from "@/redux/features/todoSlice";
+// import { useAppDispatch } from "@/redux/hooks";
 import { FormEvent, useState } from "react";
 const AddTodoModal = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const dispatch = useAppDispatch();
+  const [addTodo, { data, isLoading, isError }] = usePostTodosMutation();
+  const [priority, setSelectedPriority] = useState("low"); // Set initial default value
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    const randomString = Math.random().toString(36).substring(2, 9);
-
     const taskDetails = {
-      id: randomString,
       title,
-      description
+      description,
+      priority,
+      isCompleted: false,
     };
-    dispatch(addTodo(taskDetails));
     console.log(taskDetails);
+    addTodo(taskDetails);
+    console.log(data, isLoading, isError);
   };
   return (
     <Dialog>
@@ -65,6 +74,24 @@ const AddTodoModal = () => {
                 id="description"
                 className="col-span-3"
               />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="title" className="text-right">
+                Priority
+              </Label>
+              <Select
+                value={priority}
+                onValueChange={(value) => setSelectedPriority(value)}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Priority" />
+                </SelectTrigger>
+                <SelectContent defaultValue="Low">
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter>
